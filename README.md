@@ -20,3 +20,13 @@ id "com.android.application" version "7.3.0" apply false
 ```gradle
 id "com.android.application" version "8.3.2" apply false
 ```
+
+there maybe other error related to jdk
+first in gradle-wrapper android
+distributionUrl=https\://services.gradle.org/distributions/gradle-8.4-bin.zip
+upgrade to this 
+use below command in terminal
+cd android
+./gradlew wrapper --gradle-version=8.4
+
+and run flutter doctor --verbose

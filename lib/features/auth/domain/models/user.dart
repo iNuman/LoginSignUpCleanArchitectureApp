@@ -1,28 +1,19 @@
 import '../../data/data_sources/local/entity/user.dart';
 
 class UserModel {
+  final String id;
   final String email;
   final String username;
+  final String? password; // Nullable
+  final String? token;    // Nullable
 
   UserModel({
+    required this.id,
     required this.email,
-    required this.username
+    required this.username,
+    this.password, // Optional
+    this.token,    // Optional
   });
-
-  factory UserModel.fromMap(Map<String, dynamic> map) {
-    return UserModel(
-      email: map['email'] as String,
-      username: map['username'] as String,
-    );
-  }
-
 }
 
-extension UserXModel on UserModel {
-  UserEntity toEntity() {
-    return UserEntity(
-      email: email,
-      username: username
-    );
-  }
-}
+

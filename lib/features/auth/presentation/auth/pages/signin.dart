@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_clean_sample/features/auth/common/bloc/button/button_state_cubit.dart';
 import 'package:flutter_clean_sample/features/auth/common/widgets/button/basic_app_button.dart';
 import 'package:flutter_clean_sample/features/auth/di/service_locator.dart';
-import 'package:flutter_clean_sample/features/auth/domain/models/signin_req_params.dart';
+import 'package:flutter_clean_sample/features/auth/data/dto/signin_req_params.dart';
 import 'package:flutter_clean_sample/features/auth/domain/use_case/signin.dart';
 
 import '../../../common/bloc/button/button_state.dart';

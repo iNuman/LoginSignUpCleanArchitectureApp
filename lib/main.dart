@@ -7,6 +7,8 @@ import 'package:flutter_clean_sample/features/auth/presentation/home/pages/home.
 import 'features/auth/common/bloc/auth/auth_state_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'features/auth/di/service_locator.dart';
+
 void main() {
     SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
@@ -14,7 +16,8 @@ void main() {
       systemNavigationBarColor: Colors.black
     )
   );
-  runApp(const MyApp());
+    setupServiceLocator();
+    runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

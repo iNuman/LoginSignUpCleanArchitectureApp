@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter_clean_sample/features/auth/domain/models/signin_req_params.dart';
-import 'package:flutter_clean_sample/features/auth/domain/models/signup_req_params.dart';
+import 'package:flutter_clean_sample/features/auth/data/dto/signin_req_params.dart';
+
+import '../../data/dto/signup_req_params.dart';
 
 abstract class AuthRepository {
   

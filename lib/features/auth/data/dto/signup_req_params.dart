@@ -10,13 +10,4 @@ class SignupReqParams {
     required this.password,
     required this.username
   });
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'email': email,
-      'password': password,
-      'username': username,
-    };
-  }
-
 }

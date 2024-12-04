@@ -1,14 +1,16 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_clean_sample/features/auth/data/data_sources/local/entity/user.dart';
+import 'package:flutter_clean_sample/features/auth/data/mapper/mapper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../di/service_locator.dart';
-import '../../domain/models/signin_req_params.dart';
-import '../../domain/models/signup_req_params.dart';
+import '../dto/signin_req_params.dart';
 import '../../domain/models/user.dart';
-import '../../domain/repository/auth.dart';
+import '../../domain/repository/auth_repository.dart';
 import '../data_sources/local/auth_local_service.dart';
 import '../data_sources/remote/auth_api_service.dart';
+import '../dto/signup_req_params.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
 
@@ -22,8 +24,12 @@ class AuthRepositoryImpl extends AuthRepository {
     }, 
     (data) async {
       Response response = data;
+
+      UserModel userModel = toUserModelFromSignUpOrSignInMap(response.data);
+      var userEntity = userModel.toEntity();
       SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-      sharedPreferences.setString('token', response.data['token']);
+      sharedPreferences.setString('token', userEntity.token!);
+      // sharedPreferences.setString('token', response.data['token']);
       return Right(response);
     }
     );
@@ -43,8 +49,9 @@ class AuthRepositoryImpl extends AuthRepository {
       },
       (data) {
         Response response = data;
-        var userModel = UserModel.fromMap(response.data);
+        var userModel = toUserModelFromMap(response.data);
         var userEntity = userModel.toEntity();
+        print("ffnet getUser $userEntity");
         return Right(userEntity);
       }
      );
@@ -56,7 +63,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future < Either > signin(SigninReqParams signinReq) async {
+  Future<Either> signin(SigninReqParams signinReq) async {
     Either result = await sl < AuthApiService > ().signin(signinReq);
     return result.fold(
       (error) {
@@ -64,8 +71,13 @@ class AuthRepositoryImpl extends AuthRepository {
       },
       (data) async {
         Response response = data;
+
+        var userModel = toUserModelFromSignUpOrSignInMap(response.data);
+        var userEntity = userModel.toEntity();
+
         SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-        sharedPreferences.setString('token', response.data['token']);
+        sharedPreferences.setString('token', userEntity.token!);
+        // sharedPreferences.setString('token', response.data['token']);
         return Right(response);
       }
     );

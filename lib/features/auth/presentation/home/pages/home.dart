@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_clean_sample/features/auth/common/bloc/button/button_state_cubit.dart';
 import 'package:flutter_clean_sample/features/auth/common/widgets/button/basic_app_button.dart';
-import 'package:flutter_clean_sample/features/auth/data/data_sources/local/entity/user.dart';
+import 'package:flutter_clean_sample/features/auth/data/data_sources/local/entity/user_entity.dart';
 import 'package:flutter_clean_sample/features/auth/di/service_locator.dart';
+import 'package:flutter_clean_sample/features/auth/domain/models/user.dart';
 import 'package:flutter_clean_sample/features/auth/domain/use_case/logout.dart';
 import 'package:flutter_clean_sample/features/auth/presentation/auth/pages/signup.dart';
 import 'package:flutter_clean_sample/features/auth/presentation/home/bloc/user_display_cubit.dart';
@@ -41,9 +42,9 @@ class HomePage extends StatelessWidget {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _username(state.userEntity),
+                      _username(state.userModel),
                       const SizedBox(height: 10, ),
-                      _email(state.userEntity),
+                      _email(state.userModel),
                       _logout(context)
                     ],
                   );
@@ -60,7 +61,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _username(UserEntity user) {
+  Widget _username(UserModel user) {
     return Text(
       user.username,
       style: const TextStyle(
@@ -70,7 +71,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-   Widget _email(UserEntity user) {
+   Widget _email(UserModel user) {
     return Text(
       user.email,
        style: const TextStyle(

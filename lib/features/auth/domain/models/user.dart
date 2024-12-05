@@ -1,4 +1,4 @@
-import '../../data/data_sources/local/entity/user.dart';
+import '../../data/data_sources/local/entity/user_entity.dart';
 
 class UserModel {
   final String id;

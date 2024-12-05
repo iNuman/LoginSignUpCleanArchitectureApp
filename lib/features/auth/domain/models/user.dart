@@ -1,16 +1,16 @@
-import '../../data/data_sources/local/entity/user.dart';
+import '../../data/data_sources/local/entity/user_entity.dart';
 
 class UserModel {
-  final String id;
+  final String? id;
   final String email;
-  final String username;
+  String? username;
   final String? password; // Nullable
   final String? token;    // Nullable
 
   UserModel({
-    required this.id,
+    this.id,
     required this.email,
-    required this.username,
+    this.username,
     this.password, // Optional
     this.token,    // Optional
   });

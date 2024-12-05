@@ -1,7 +1,7 @@
 import 'package:flutter_clean_sample/features/auth/data/dto/signin_req_params.dart';
 
 import '../../domain/models/user.dart';
-import '../data_sources/local/entity/user.dart';
+import '../data_sources/local/entity/user_entity.dart';
 import '../dto/signup_req_params.dart';
 
 extension UserModelMapper on SignupReqParams {
@@ -41,8 +41,8 @@ UserModel toUserModelFromSignUpOrSignInMap(Map<String, dynamic> map) {
     id: userMap['_id'] as String,
     email: userMap['email'] as String,
     username: userMap['username'] as String,
-    password: userMap['password'] as String?, // Nullable
-    token: map['token'] as String?,          // Top-level token
+    password: userMap['password'] as String?,
+    token: map['token'] as String?,
   );
 }
 
@@ -51,21 +51,38 @@ UserModel toUserModelFromMap(Map<String, dynamic> map) {
     id: map['_id'] as String,
     email: map['email'] as String,
     username: map['username'] as String,
-    password: map['password'] as String?, // Safely handle nullable field
-    token: map['token'] as String?,       // Safely handle nullable field
+    password: map['password'] as String?,
+    token: map['token'] as String?,
   );
 }
 
+extension SignInDto on UserModel {
+  SigninReqParams toSignInDto() {
+    return SigninReqParams(
+      email: email,
+      password: password ??"",
+    );
+  }
+}
 
+extension SignUpDto on UserModel {
+  SignupReqParams toSignUpDto() {
+    return SignupReqParams(
+      email: email,
+      password: password ??"",
+      username: username?? "",
+    );
+  }
+}
 
 // Related to local database
 extension UserXModel on UserModel {
   UserEntity toEntity() {
     // user model converting to entity to deal with local database
     return UserEntity(
-      id: id,
+      id: id ?? "",
       email: email,
-      username: username,
+      username: username ?? "",
       password: password,
       token: token,
     );

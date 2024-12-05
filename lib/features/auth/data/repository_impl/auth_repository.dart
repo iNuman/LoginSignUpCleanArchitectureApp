@@ -1,8 +1,8 @@
+import 'dart:ffi';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_clean_sample/features/auth/data/data_sources/local/entity/user.dart';
 import 'package:flutter_clean_sample/features/auth/data/mapper/mapper.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../di/service_locator.dart';
 import '../dto/signin_req_params.dart';
@@ -16,8 +16,9 @@ class AuthRepositoryImpl extends AuthRepository {
 
   
   @override
-  Future<Either> signup(SignupReqParams signupReq) async {
-   Either result = await sl<AuthApiService>().signup(signupReq);
+  Future<Either> signup(UserModel signupReq) async {
+   Either result = await sl<AuthApiService>().signup(signupReq.toSignUpDto());
+   AuthLocalService authLocalService = sl<AuthLocalService>();
    return result.fold(
     (error){
       return Left(error);
@@ -26,10 +27,7 @@ class AuthRepositoryImpl extends AuthRepository {
       Response response = data;
 
       UserModel userModel = toUserModelFromSignUpOrSignInMap(response.data);
-      var userEntity = userModel.toEntity();
-      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-      sharedPreferences.setString('token', userEntity.token!);
-      // sharedPreferences.setString('token', response.data['token']);
+      await authLocalService.saveUserToLocal(userModel.toEntity());
       return Right(response);
     }
     );
@@ -39,47 +37,57 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<bool> isLoggedIn() async {
     return await sl<AuthLocalService>().isLoggedIn();
   }
-  
+
   @override
   Future<Either> getUser() async {
+    AuthLocalService authLocalService = sl<AuthLocalService>();
+    bool isLoggedInUserAlready = await authLocalService.isLoggedIn();
+
+    if (isLoggedInUserAlready) {
+      UserModel? userModel = await authLocalService.getUserFromLocal();
+      if (userModel != null) {
+        return Right(userModel);
+      }
+    }
+
     Either result = await sl<AuthApiService>().getUser();
     return result.fold(
-      (error){
-        return Left(error);
-      },
-      (data) {
+          (error) => Left(error),
+          (data) async {
         Response response = data;
         var userModel = toUserModelFromMap(response.data);
-        var userEntity = userModel.toEntity();
-        print("ffnet getUser $userEntity");
-        return Right(userEntity);
-      }
-     );
+
+        var userModelSaved =  await authLocalService.saveUserToLocal(userModel.toEntity());
+        return Right(userModel);
+      },
+    );
   }
-  
+
   @override
   Future<Either> logout() async {
     return await sl<AuthLocalService>().logout();
   }
 
   @override
-  Future<Either> signin(SigninReqParams signinReq) async {
-    Either result = await sl < AuthApiService > ().signin(signinReq);
+  Future<Either> signin(UserModel signinReq) async {
+    Either result = await sl<AuthApiService>().signin(signinReq.toSignInDto());
+    AuthLocalService authLocalService = sl<AuthLocalService>();
+
     return result.fold(
-      (error) {
+          (error) {
         return Left(error);
       },
-      (data) async {
+          (data) async {
         Response response = data;
 
         var userModel = toUserModelFromSignUpOrSignInMap(response.data);
         var userEntity = userModel.toEntity();
 
-        SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-        sharedPreferences.setString('token', userEntity.token!);
-        // sharedPreferences.setString('token', response.data['token']);
-        return Right(response);
-      }
+        // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+        // sharedPreferences.setString('token', userEntity.token!);
+        await authLocalService.saveUserToLocal(userEntity);
+        return Right(userEntity);
+      },
     );
   }
 

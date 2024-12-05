@@ -14,7 +14,7 @@ class UserDisplayCubit extends Cubit<UserDisplayState> {
         emit(LoadUserFailure(errorMessage: error));
       },
       (data) {
-        emit(UserLoaded(userEntity: data));
+        emit(UserLoaded(userModel: data));
       }
     );
   }

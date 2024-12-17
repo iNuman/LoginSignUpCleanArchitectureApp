@@ -60,7 +60,7 @@
 
 ## Project Architecture
 
-<img src="https://github.com/iNuman/react_clean_app/blob/master/architecture/FlowDiagramTypeScriptArchitecture.png" alt="TypeScript Architecture">
+<img src="https://github.com/iNuman/LoginSignUpCleanArchitectureApp/blob/master/architectureAssets/MviFlowOfAuthCleanArchitecture%20copy.png" alt="Flutter Architecture">
 
 
 ## if anyone face below error 

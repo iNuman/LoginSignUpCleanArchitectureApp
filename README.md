@@ -1,6 +1,6 @@
 # Welcome to Flutter Clean architecture Auth feature App
 
-## Project Structure
+## Package Structure
 
 ````
 ├ feature/

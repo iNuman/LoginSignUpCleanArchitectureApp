@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_clean_sample/features/auth/common/bloc/button/button_state_cubit.dart';
 import 'package:flutter_clean_sample/features/auth/common/widgets/button/basic_app_button.dart';
 import 'package:flutter_clean_sample/features/auth/di/service_locator.dart';
+import 'package:flutter_clean_sample/features/auth/domain/models/user.dart';
 import 'package:flutter_clean_sample/features/auth/domain/use_case/signup.dart';
 import 'package:flutter_clean_sample/features/auth/presentation/auth/pages/signin.dart';
 import 'package:flutter_clean_sample/features/auth/presentation/home/pages/home.dart';
@@ -108,7 +109,7 @@ class SignupPage extends StatelessWidget {
           onPressed: (){
             context.read<ButtonStateCubit>().excute(
               usecase: sl<SignupUseCase>(),
-              params: SignupReqParams(
+              params: UserModel(
                 email: _emailCon.text,
                 password: _passwordCon.text, 
                 username: _usernameCon.text

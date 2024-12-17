@@ -1,5 +1,4 @@
 
-import 'package:flutter_clean_sample/features/auth/data/data_sources/local/entity/user_entity.dart';
 import 'package:flutter_clean_sample/features/auth/domain/models/user.dart';
 
 abstract class UserDisplayState {}

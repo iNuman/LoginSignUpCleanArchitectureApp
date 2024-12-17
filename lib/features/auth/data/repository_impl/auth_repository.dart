@@ -16,8 +16,8 @@ class AuthRepositoryImpl extends AuthRepository {
 
   
   @override
-  Future<Either> signup(SignupReqParams signupReq) async {
-   Either result = await sl<AuthApiService>().signup(signupReq);
+  Future<Either> signup(UserModel signupReq) async {
+   Either result = await sl<AuthApiService>().signup(signupReq.toSignUpDto());
    AuthLocalService authLocalService = sl<AuthLocalService>();
    return result.fold(
     (error){
@@ -69,8 +69,8 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Either> signin(SigninReqParams signinReq) async {
-    Either result = await sl<AuthApiService>().signin(signinReq);
+  Future<Either> signin(UserModel signinReq) async {
+    Either result = await sl<AuthApiService>().signin(signinReq.toSignInDto());
     AuthLocalService authLocalService = sl<AuthLocalService>();
 
     return result.fold(

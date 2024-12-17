@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_clean_sample/features/auth/common/bloc/button/button_state_cubit.dart';
 import 'package:flutter_clean_sample/features/auth/common/widgets/button/basic_app_button.dart';
 import 'package:flutter_clean_sample/features/auth/di/service_locator.dart';
-import 'package:flutter_clean_sample/features/auth/data/dto/signin_req_params.dart';
+import 'package:flutter_clean_sample/features/auth/domain/models/user.dart';
 import 'package:flutter_clean_sample/features/auth/domain/use_case/signin.dart';
 
 import '../../../common/bloc/button/button_state.dart';
@@ -95,7 +95,7 @@ class SigninPage extends StatelessWidget {
           onPressed: (){
             context.read<ButtonStateCubit>().excute(
               usecase: sl<SigninUseCase>(),
-              params: SigninReqParams(
+              params: UserModel(
                 email: _emailCon.text, 
                 password: _passwordCon.text
               )
@@ -118,7 +118,7 @@ class SigninPage extends StatelessWidget {
             )
           ),
            TextSpan(
-            text: ' Sign Up',
+            text: 'Sign Up',
             style: const TextStyle(
               color: Color(0xff3461FD),
               fontWeight: FontWeight.w500

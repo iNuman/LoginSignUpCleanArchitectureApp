@@ -56,16 +56,33 @@ UserModel toUserModelFromMap(Map<String, dynamic> map) {
   );
 }
 
+extension SignInDto on UserModel {
+  SigninReqParams toSignInDto() {
+    return SigninReqParams(
+      email: email,
+      password: password ??"",
+    );
+  }
+}
 
+extension SignUpDto on UserModel {
+  SignupReqParams toSignUpDto() {
+    return SignupReqParams(
+      email: email,
+      password: password ??"",
+      username: username?? "",
+    );
+  }
+}
 
 // Related to local database
 extension UserXModel on UserModel {
   UserEntity toEntity() {
     // user model converting to entity to deal with local database
     return UserEntity(
-      id: id,
+      id: id ?? "",
       email: email,
-      username: username,
+      username: username ?? "",
       password: password,
       token: token,
     );

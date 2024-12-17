@@ -63,7 +63,7 @@ class HomePage extends StatelessWidget {
 
   Widget _username(UserModel user) {
     return Text(
-      user.username,
+      user.username ?? "",
       style: const TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 19

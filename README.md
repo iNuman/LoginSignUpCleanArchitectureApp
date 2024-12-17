@@ -55,7 +55,6 @@
 │   ├── presentation/
 │   │   │
 ├── main.dart
-│   └── user_type.tsx
 └── .gitignore
 ````
 

@@ -49,11 +49,20 @@
 │   ├── di/
 │   │   ├── service_locator.dart
 │   ├── domain/
-│   │   ├── model
-│   │   ├── repository
-│   │   ├── use_case
+│   │   ├── model/
+│   │   ├── repository/
+│   │   ├── use_case/
 │   ├── presentation/
-│   │   │
+│   │   ├── auth/
+│   │   │   └── pages
+│   │   │   │   └── singin.dart
+│   │   │   │   └── signup.dart
+│   │   └── home/
+│   │   │   ├── pages/
+│   │   │   │   └── home.dart
+│   │   │   └── block/
+│   │   │   │   ├── user_display_cubit.dart
+│   │   │   │   └── user_display_state.dart
 ├── main.dart
 └── .gitignore
 ````

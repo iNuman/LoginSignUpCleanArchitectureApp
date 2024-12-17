@@ -1,6 +1,70 @@
-# flutter_clean_sample
+# Welcome to Flutter Clean architecture Auth feature App
+
+## Project Structure
+
+````
+├ feature/
+│  └─ auth
+│   │ └─common
+│   │   ├── auth
+│   │   │    ├── auth_state.dart
+│   │   │    └─  auth_state_cubit.dart
+│   │   ├── button
+│   │   │    ├── button_state.dart
+│   │   │    └─  button_state_cubit.dart
+│   │   ├── widgets
+│   │   │    └─  basic_app_button.dart
+│   │   └── constants
+│   │   │   └─ ApiUrils.tsx
+│   │   │   └─ Routes.tsx
+│   │   │
+│   ├── core/
+│   │   ├── config
+│   │   │   ├── login.js
+│   │   │   └── signup.js
+│   │   ├── constants
+│   │   │   ├── index.js
+│   │   │   └── profile.js
+│   │   ├── usercase
+│   │   │   ├── index.js
+│   │   │   └── profile.js
+│   │   │
+│   │   ├── data/
+│   │   │   ├── data_sources/
+│   │   │   │    ├── remote/
+│   │   │   │    │   ├── auth_api_service.dart
+│   │   │   │    │   └── dio_client.dart
+│   │   │   │    └── local/
+│   │   │   │    │   ├── db.dart
+│   │   │   │    │   └── entity.dart
+│   │   │   ├── dto/
+│   │   │   │   ├── sign_in_req_params.dart
+│   │   │   │   └── signup_req_params.dart
+│   │   │   │ 
+│   │   │   ├── mapper/
+│   │   │   │   └── mapper.dart
+│   │   │   │ 
+│   │   │   ├── repository__impl/
+│   │   │   │   └── auth_repository.dart
+│   ├── di/
+│   │   ├── service_locator.dart
+│   ├── domain/
+│   │   ├── model
+│   │   ├── repository
+│   │   ├── use_case
+│   ├── presentation/
+│   │   │
+├── main.dart
+│   └── user_type.tsx
+└── .gitignore
+````
+
+## Project Architecture
+
+<img src="https://github.com/iNuman/react_clean_app/blob/master/architecture/FlowDiagramTypeScriptArchitecture.png" alt="TypeScript Architecture">
 
 
+## if anyone face below error 
 ---
 Execution failed for task ':shared_preferences_android:compileDebugJavaWithJavac'.
 > Could not resolve all files for configuration ':shared_preferences_android:androidJdkImage'.
